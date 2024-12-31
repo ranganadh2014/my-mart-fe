@@ -1,4 +1,8 @@
-export const getErrorMessage = (response: any) => {
+interface ErrorResponse {
+  message?: string | string[];
+}
+
+export const getErrorMessage = (response: ErrorResponse) => {
     if (response.message) {
       if (Array.isArray(response.message)) {
         return formatErrorMessage(response.message[0]);
