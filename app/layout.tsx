@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import {AppRouterCacheProvider} from "@mui/material-nextjs/v15-appRouter";
-import { Container, CssBaseline, ThemeProvider } from "@mui/material";
-import darkTheme from "./dark.theme";
+import { Container, CssBaseline} from "@mui/material";
+import Header from "./header/header";
+import { cookies } from "next/headers";
+import Providers from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,24 +21,24 @@ export const metadata: Metadata = {
   description: "Quality Products at affordable price",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isAuthenticated = !!((await cookies()).get("Authentication"));
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={darkTheme}>
-            <CssBaseline />
-            <Container>
-              {children}
-            </Container>
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+        <Providers authenticated={isAuthenticated}>
+          <CssBaseline />
+          <Header />
+          <Container>
+            {children}
+          </Container>
+        </Providers>
       </body>
     </html>
   );
