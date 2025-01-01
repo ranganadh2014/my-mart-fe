@@ -1,4 +1,5 @@
-import { API_URL } from "../auth/constants/api";
+import { API_URL } from "../constants/api";
+
 import { getErrorMessage } from "./errors"
 
 export const post = async (path: string, formData: FormData) => {

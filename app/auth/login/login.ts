@@ -1,0 +1,41 @@
+"use server";
+import { FormError } from "@/app/common/form-error.interface";
+import { redirect } from "next/navigation";
+import { API_URL } from "@/app/constants/api";
+import { getErrorMessage } from "@/app/util/errors";
+import { cookies } from "next/headers";
+import { jwtDecode } from "jwt-decode";
+
+export default async function login (
+    _prevState: FormError,
+    formData: FormData,
+) {
+    // make the fetch call
+    const remoteUrl = `${API_URL}/auth/login`;
+    // console.log(remoteUrl);
+    // console.log(JSON.stringify(Object.fromEntries(formData)));
+    const res = await fetch(remoteUrl, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(Object.fromEntries(formData)),
+    });
+    if(!res.ok) {
+        return {error: getErrorMessage(await res.json())}
+    }
+    //get cookie from response header
+    const cookieHeader = res.headers.get("Set-Cookie");
+    //extract jwt token
+    if(cookieHeader) {
+        const jwtToken = cookieHeader.split(";")[0].split("=")[1];
+
+        (await cookies()).set({
+            name: "Authentication",
+            value: jwtToken,
+            secure: true,
+            httpOnly: true, 
+            expires: new Date(jwtDecode(jwtToken).exp!*1000),
+        });
+    }
+
+    redirect("/");
+}
