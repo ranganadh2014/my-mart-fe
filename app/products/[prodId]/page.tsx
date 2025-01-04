@@ -45,7 +45,7 @@ export default async function SingleProduct({params}: SingleProductProps) {
                 color="primary"
                 sx={{ fontWeight: 'bold' }}
               >
-                ${product.price}
+                Rs. {product.price}
               </Typography>
             </Stack>
           </Grid>
