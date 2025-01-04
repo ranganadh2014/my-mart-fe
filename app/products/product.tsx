@@ -9,7 +9,7 @@ interface ProductProps {
 
 export default function Product({ product }: ProductProps) {
   return (
-    <Card className="p-4">
+    <Card sx={{ maxWidth: 345}}>
       <CardMedia
         sx={{ height: 140 }}
         image={product.image_url}
@@ -19,8 +19,8 @@ export default function Product({ product }: ProductProps) {
         <Typography gutterBottom variant="h5" component="div">
           {product.name}
         </Typography>
-        <Typography gutterBottom variant="h7" component="div">
-          Rs {product.price}
+        <Typography gutterBottom component="div">
+          Rs. {product.price}
         </Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
         {product.description}
