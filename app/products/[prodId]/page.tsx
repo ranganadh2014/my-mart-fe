@@ -3,12 +3,11 @@ import Grid from '@mui/material/Grid2';
 import { Stack, Typography, Box } from "@mui/material";
 
 interface SingleProductProps {
-    params: {
-        prodId: string
-    }
+    params: Promise<{ prodId: string }>;
 }
 export default async function SingleProduct({params}: SingleProductProps) {
-    const product = await getProduct(+(await params).prodId);
+    const {prodId} = await params;
+    const product = await getProduct(+prodId);
     if (!product) {
         return <Typography>No product found</Typography>;
     }
@@ -17,7 +16,7 @@ export default async function SingleProduct({params}: SingleProductProps) {
         <Box sx={{ marginBottom: '2rem' }}>
         <Grid container spacing={2}>
           {/* Product Image */}
-          <Grid xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box component="figure" sx={{ margin: 0 }}>
               <img
                 src={product.image_url}
@@ -34,7 +33,7 @@ export default async function SingleProduct({params}: SingleProductProps) {
           </Grid>
   
           {/* Product Details */}
-          <Grid md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Stack spacing={3}>
               <Typography variant="h4" component="h1">
                 {product.name}
