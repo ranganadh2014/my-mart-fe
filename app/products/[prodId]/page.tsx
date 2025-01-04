@@ -1,6 +1,5 @@
 import getProduct from "./actions/getProduct";
 import Grid from '@mui/material/Grid2';
-import Image from "next/image";
 import { Stack, Typography, Box } from "@mui/material";
 
 interface SingleProductProps {
