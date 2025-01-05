@@ -1,6 +1,7 @@
 import getProduct from "./actions/getProduct";
 import Grid from '@mui/material/Grid2';
 import { Stack, Typography, Box } from "@mui/material";
+import Checkout from "@/app/checkout/checkout";
 
 interface SingleProductProps {
     params: Promise<{ prodId: string }>;
@@ -47,6 +48,7 @@ export default async function SingleProduct({params}: SingleProductProps) {
               >
                 Rs. {product.price}
               </Typography>
+              <Checkout prodId={product.id}/>
             </Stack>
           </Grid>
         </Grid>
