@@ -42,6 +42,7 @@ export default function Checkout({prodId}: CheckoutProps) {
           "name": "My Mart",
           "description": "Test Transaction",
           "order_id": orderConfig.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           "handler": async function (response: any) {
             console.log("Response");
             console.log(response);
@@ -66,10 +67,12 @@ export default function Checkout({prodId}: CheckoutProps) {
         };
 
         // 3. create the instance of Razorpay
+        // @ts-expect-error Razorpay types not available 
         const razorpay = new Razorpay(finalOrderObject);
 
         // 4. error handling
-        razorpay.on('payment.failed', function (response) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        razorpay.on('payment.failed', function (response: any) {
             alert(`Payment Failed: ${response.error.description}`);
           });   
         // 5. open the checkout form of razorpay
