@@ -2,6 +2,7 @@
 
 import { Button } from "@mui/material";
 import createOrder from "./actions/create-order";
+import verifyOrder from "./actions/verify-order";
 
 function loadScript() {
     return new Promise((resolve) => {
@@ -41,8 +42,21 @@ export default function Checkout({prodId}: CheckoutProps) {
           "name": "My Mart",
           "description": "Test Transaction",
           "order_id": orderConfig.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-          "handler": function (response) {
-            alert(`Payment Successful: ${response.razorpay_payment_id}`);
+          "handler": async function (response: any) {
+            console.log("Response");
+            console.log(response);
+            // verify payment
+            const result = await verifyOrder({
+              orderId: response.razorpay_order_id,
+              razorpayPaymentId: response.razorpay_payment_id,
+              razorpaySignature: response.razorpay_signature,
+            });
+            console.log(result);
+            if (result.error === "") {
+              alert("Payment successful");
+            } else {
+              alert("Payment failed");
+            }
           },
           "prefill": {
             "name": "Test",
