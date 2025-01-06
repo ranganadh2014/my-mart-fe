@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardActionArea, Typography } from "@mui/material";
-import {IProduct} from "../common/interfaces/product.interface";
+import {IProduct} from "./interfaces/product.interface";
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { useRouter } from "next/navigation";

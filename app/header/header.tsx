@@ -13,9 +13,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
-import { AuthContext } from '../auth/auth-context';
+import { AuthContext } from '../auth/contexts/auth-context';
 import { routes, unauthenticatedRoutes } from '../common/constants/routes';
-import logout from '../auth/logout';
+import logout from '../auth/logout/actions/logout';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -133,7 +133,7 @@ export default function Header() {
               </Button>
             ))}
           </Box>
-          <Settings />
+          {isAuthenticated && <Settings />}
         </Toolbar>
       </Container>
     </AppBar>
