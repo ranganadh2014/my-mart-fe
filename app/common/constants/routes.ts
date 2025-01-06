@@ -1,3 +1,5 @@
+import { title } from "process";
+
 export const unauthenticatedRoutes = [
     {   
         title: "Login",
@@ -13,5 +15,9 @@ export const routes = [
     {
         title: "Home",
         path: "/",
+    },
+    {
+        title: "Orders",
+        path: "/orders",
     },
 ];
