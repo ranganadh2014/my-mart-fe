@@ -27,8 +27,8 @@ export default async function login (
     //extract jwt token
     if(cookieHeader) {
         const jwtToken = cookieHeader.split(";")[0].split("=")[1];
-
-        (await cookies()).set({
+        const cookieStore = await cookies();
+        cookieStore.set({
             name: "Authentication",
             value: jwtToken,
             secure: true,
