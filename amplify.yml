@@ -6,6 +6,8 @@ frontend:
         - npm install
     build:
       commands:
+        - echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> .env.production
+        - echo "NEXT_PUBLIC_RAZOR_PAY_KEY_ID=$NEXT_PUBLIC_RAZOR_PAY_KEY_ID" >> .env.production
         - npm run build
   artifacts:
     baseDirectory: .next
