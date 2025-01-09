@@ -8,6 +8,7 @@ export default async function createUser(
   _prevState: FormError,
   formData: FormData
 ) {
+  // Make a post call to backend to create new user
   const { error } = await post("users", formData);
   if (error) {
     return { error };

@@ -1,13 +1,24 @@
-import { NextRequest } from "next/server";
-import { unauthenticatedRoutes } from "./app/common/constants/routes";
+import { NextRequest, NextResponse } from "next/server";
+import { unProtectedRoutes } from "./app/common/constants/routes";
 
 export function middleware(request: NextRequest) {
-    //check authentication token in the cookie
+
+    //check whether authentication token present in the cookies
     const auth = request.cookies.get("Authentication")?.value;
 
-    if(!auth && !unauthenticatedRoutes.some((route)=> request.nextUrl.pathname.startsWith(route.path))) {
+    //Not authenticated 
+    // & requested URL path is not in the unprotected routes list
+    if(!auth 
+        && !unProtectedRoutes.some(
+            routePrefix => request.nextUrl.pathname.startsWith(routePrefix.path)
+        )
+    ) {
+        // Redirect to login route
         return Response.redirect(new URL("/auth/login", request.url));
     }
+
+    // Allow the request to proceed if authenticated or accessing an unprotected route
+    return NextResponse.next();
 }
 
 export const config = {

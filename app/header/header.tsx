@@ -12,9 +12,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import { AuthContext } from '../auth/contexts/auth-context';
-import { routes, unauthenticatedRoutes } from '../common/constants/routes';
+import { protectedRoutes, unProtectedRoutes } from '../common/constants/routes';
 import logout from '../auth/logout/actions/logout';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -22,40 +21,40 @@ import Link from 'next/link';
 
 export default function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  // Check authentication status
   const isAuthenticated = React.useContext(AuthContext);
-  //create router
+  // create router
   const router = useRouter();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
 
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
   //set the pages to appropriate array based on authentication
-  const pages = isAuthenticated ? routes : unauthenticatedRoutes;
+  const pages = isAuthenticated ? protectedRoutes : unProtectedRoutes;
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <ShoppingBagIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component={Link}
             href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              fontFamily: 'Roboto, sans-serif',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: '.1rem',
               color: 'inherit',
               textDecoration: 'none',
+              textAlign: 'center',
             }}
           >
             MyMart
@@ -99,7 +98,6 @@ export default function Header() {
               ))}
             </Menu>
           </Box>
-          <ShoppingBagIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -109,11 +107,12 @@ export default function Header() {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: 'Roboto, sans-serif',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: '.1rem',
               color: 'inherit',
               textDecoration: 'none',
+              textAlign: 'center',
             }}
           >
             MyMart
@@ -155,7 +154,7 @@ const  Settings = () => {
     <Box sx={{ flexGrow: 0 }}>
     <Tooltip title="Open settings">
       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+        <Avatar />
       </IconButton>
     </Tooltip>
     <Menu
