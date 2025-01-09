@@ -26,15 +26,20 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // check whether authentication cookie available
   const isAuthenticated = !!((await cookies()).get("Authentication"));
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers authenticated={isAuthenticated}>
+          {/*Normalize styles across various browsers & Consistent Default Styles */}
           <CssBaseline />
+          {/* App Bar */}
           <Header />
+          {/*Add 2.5rem margin on top for the contents. Skip for login screen */}
           <Container className={isAuthenticated? "mt-10": ""}>
             {children}
           </Container>

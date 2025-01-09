@@ -10,10 +10,8 @@ export default async function login (
     _prevState: FormError,
     formData: FormData,
 ) {
-    // make the fetch call
+    // make the fetch call to backend
     const remoteUrl = `${API_URL}/auth/login`;
-    // console.log(remoteUrl);
-    // console.log(JSON.stringify(Object.fromEntries(formData)));
     const res = await fetch(remoteUrl, {
         method: "POST",
         headers: {"Content-Type": "application/json"},

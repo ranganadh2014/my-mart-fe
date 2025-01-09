@@ -1,17 +1,17 @@
 version: 1
 frontend:
   phases:
-    preBuild:
+    preBuild: # Commands to run before the build phase
       commands:
         - npm install
-    build:
+    build: # Commands to run during the build phase
       commands:
         - env | grep -e API_URL -e NEXT_PUBLIC_RAZOR_PAY_KEY_ID >> .env.production
         - npm run build
-  artifacts:
-    baseDirectory: .next
+  artifacts: # Configuration for build artifacts
+    baseDirectory: .next # The directory where built files are located
     files:
-      - '**/*'
-  cache:
+      - '**/*' # Include all files in the base directory for deployment
+  cache: # Caching configuration to speed up future builds
     paths:
-      - node_modules/**/*
+      - node_modules/**/* # Cache all node_modules to avoid reinstalling dependencies on every build

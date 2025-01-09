@@ -1,5 +1,5 @@
 
-export const unauthenticatedRoutes = [
+export const unProtectedRoutes = [
     {   
         title: "Login",
         path: "/auth/login",
@@ -10,7 +10,7 @@ export const unauthenticatedRoutes = [
     },    
 ];
 
-export const routes = [
+export const protectedRoutes = [
     {
         title: "Home",
         path: "/",

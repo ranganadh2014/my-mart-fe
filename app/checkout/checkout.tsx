@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import createOrder from "./actions/create-order";
 import verifyOrder from "./actions/verify-order";
 
+// This function adds Razor pay provided module to script tag
 function loadScript() {
     return new Promise((resolve) => {
       const script = document.createElement('script')
@@ -27,6 +28,7 @@ interface CheckoutProps {
 export default function Checkout({prodId}: CheckoutProps) {
     
     async function handleCheckout() {
+        // Request new order to backend, which provides order ID
         const order = await createOrder(prodId);
         const orderConfig = order.data;
         console.log(orderConfig);
@@ -42,9 +44,9 @@ export default function Checkout({prodId}: CheckoutProps) {
           "name": "My Mart",
           "description": "Test Transaction",
           "order_id": orderConfig.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+          // This handler will be called once the payment is successful
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           "handler": async function (response: any) {
-            console.log("Response");
             console.log(response);
             // verify payment
             const result = await verifyOrder({
@@ -71,8 +73,10 @@ export default function Checkout({prodId}: CheckoutProps) {
         const razorpay = new Razorpay(finalOrderObject);
 
         // 4. error handling
+        // Register for payment failure error
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         razorpay.on('payment.failed', function (response: any) {
+            //TODO: Update the backend about payment failure
             alert(`Payment Failed: ${response.error.description}`);
           });   
         // 5. open the checkout form of razorpay

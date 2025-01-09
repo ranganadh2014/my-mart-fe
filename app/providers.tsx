@@ -1,9 +1,7 @@
 "use client";
 
-import { ThemeProvider } from "@mui/material";
 import {AppRouterCacheProvider} from "@mui/material-nextjs/v15-appRouter";
 import { ReactElement } from "react";
-import darkTheme from "./dark.theme";
 import { AuthContext } from "./auth/contexts/auth-context";
 
 interface ProviderProps {
@@ -13,12 +11,12 @@ interface ProviderProps {
 
 export default function Providers({ children, authenticated }: ProviderProps) {
   return(
+    // NextJS integration with MUI. Designed to work with Nextjs AppRouter
     <AppRouterCacheProvider>
-      <ThemeProvider theme={darkTheme}>
-        <AuthContext.Provider value={authenticated}>
-          {children}
-        </AuthContext.Provider>
-      </ThemeProvider>
+      {/* All the child components can get authentication status from this context */}
+      <AuthContext.Provider value={authenticated}>
+        {children}
+      </AuthContext.Provider>
     </AppRouterCacheProvider>
   );
 }
