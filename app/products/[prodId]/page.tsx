@@ -8,7 +8,7 @@ interface SingleProductProps {
 }
 export default async function SingleProduct({params}: SingleProductProps) {
     const {prodId} = await params;
-    const product = await getProduct(+prodId);
+    const product = await getProduct(prodId);
     if (!product) {
         return <Typography>No product found</Typography>;
     }
