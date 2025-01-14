@@ -22,7 +22,7 @@ function loadScript() {
   }
 
 interface CheckoutProps {
-    prodId: number
+    prodId: string
 }
 
 export default function Checkout({prodId}: CheckoutProps) {
